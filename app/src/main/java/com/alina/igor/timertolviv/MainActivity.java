@@ -1,30 +1,82 @@
 package com.alina.igor.timertolviv;
 
-import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.os.Handler;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.*;
+
+
 
 
 public class MainActivity extends ActionBarActivity {
 
     private static final int MILLIS_PER_SECOND = 1000;
     private TextView lblTimer;
-    private CountDownTimer timer;
+    Timer timer = new Timer();
+    TimerTask timerTask;
+
+
     public int Day,Hours,Minutes,Seconds;
     public int nDay;
     public int wDay,wHours,wMinutes,wSeconds;
+
+    final Handler handler = new Handler();
+
+
+
+
+
+    public void startTimer() {
+        timer = new Timer();
+        initializeTimerTask();
+        timer.schedule(timerTask, 0, 1000); //
+    }
+
+
+    public void initializeTimerTask() {
+        timerTask = new TimerTask() {
+            public void run() {
+                handler.post(new Runnable() {
+                    public void run() {
+                        if (wSeconds == 0) {
+                        wSeconds = 60;
+                        wMinutes--;
+                            if (wMinutes == 0) {
+                            wMinutes = 60;
+                            wHours--;
+                                if (wHours == 0) {
+                                wHours = 24;
+                                wDay--;
+                                    if (wDay == 0) {
+                                    timer.cancel();
+                                    lblTimer.setText("Час вийшов, пора у Львів");
+                                    }
+                                }
+                            }
+                        }
+                        lblTimer.setText("Залишилося до Львова:\n" + wDay + " Днів " + wHours
+                        + " Годин " + wMinutes + " Хвилин " + wSeconds + " Секунд ");
+                        wSeconds--;
+                    }
+
+                });
+
+            }
+
+        };
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+
 
         lblTimer = (TextView) findViewById(R.id.lblTimerId);
         Calendar cal = Calendar.getInstance();
@@ -41,44 +93,16 @@ public class MainActivity extends ActionBarActivity {
         wMinutes = 60 - Minutes;
         wSeconds = 60 - Seconds;
 
+
+
+        startTimer();
+
+
+
+
+
     }
 
-    private void showTimer(int countdownMillis)
-    {
-        if(timer != null)
-        {
-            timer.cancel();
-        }
-        timer = new CountDownTimer(countdownMillis, MILLIS_PER_SECOND) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                if (wSeconds == 0) {
-                    wSeconds = 60;
-                    wMinutes--;
-                    if (wMinutes == 0) {
-                        wMinutes = 60;
-                        wHours--;
-                        if (wHours == 0) {
-                            wHours = 24;
-                            wDay--;
-                            if (wDay == 0) {
-                                timer.cancel();
-                                lblTimer.setText("Час вийшов, пора у Львів");
-                            }
-                        }
-                    }
-                }
-                lblTimer.setText("Залишилося до Львова:\n" + wDay + " Днів " + wHours
-                        + " Годин " + wMinutes + " Хвилин " + wSeconds + " Секунд ");
-                wSeconds--;
-            }
-
-            @Override
-            public void onFinish() {
-                lblTimer.setText("Час вийшов, пора у Львів");
-            }
-        }.start();
-    }
 
 
     @Override
