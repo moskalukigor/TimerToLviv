@@ -4,5 +4,6 @@
     <string name="app_name">TimerToLviv</string>
     <string name="lblTimer"> </string>
     <string name="action_settings">Settings</string>
+    <string name="btnRefreshSTR">Refresh</string>
 
 </resources>
