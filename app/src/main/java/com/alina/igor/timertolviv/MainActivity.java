@@ -90,7 +90,7 @@ public class MainActivity extends ActionBarActivity {
 
                         if(wDay == 1 || wDay % 10 == 21 || wDay % 10 == 31 || wDay % 10 == 41 || wDay % 10 == 51 || wDay % 10 == 61 || wDay % 10 == 71 || wDay % 10 == 81 || wDay % 10 == 91)
                             sDay = " День ";
-                        else if(wHours == 2 || wDay % 10 == 22 || wDay % 10 == 23 || wDay % 10 == 24 || wDay % 10 == 32 || wDay % 10 == 33 || wDay % 10 == 34 || wDay % 10 == 42 || wDay % 10 == 43 || wDay % 10 == 44
+                        else if(wDay == 2 || wDay % 10 == 22 || wDay % 10 == 23 || wDay % 10 == 24 || wDay % 10 == 32 || wDay % 10 == 33 || wDay % 10 == 34 || wDay % 10 == 42 || wDay % 10 == 43 || wDay % 10 == 44
                                 || wDay % 10 == 52 || wDay % 10 == 53 || wDay % 10 == 54|| wDay % 10 == 62 || wDay % 10 == 63 || wDay % 10 == 64|| wDay % 10 == 72 || wDay % 10 == 73 || wDay % 10 == 74
                                 || wDay % 10 == 82 || wDay % 10 == 83 || wDay % 10 == 84|| wDay % 10 == 92 || wDay % 10 == 93 || wDay % 10 == 94)
                             sDay = " Дні ";
@@ -137,7 +137,7 @@ public class MainActivity extends ActionBarActivity {
     public void GetAllData()
     {
         Calendar cal = Calendar.getInstance();
-        Day = cal.get(Calendar.DAY_OF_WEEK);
+        Day = cal.get(Calendar.DAY_OF_MONTH);
         Hours = cal.get(Calendar.HOUR_OF_DAY);
         Minutes = cal.get(Calendar.MINUTE);
         Seconds = cal.get(Calendar.SECOND);
